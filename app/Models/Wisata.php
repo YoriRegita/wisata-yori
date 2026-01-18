@@ -6,5 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wisata extends Model
 {
-    protected $fillable = ['judul','deskripsi','foto','google_maps_url'];
+    protected $fillable = [
+        'judul',
+        'deskripsi',
+        'foto',
+        'google_maps_url',
+        'category_id',
+        'user_id',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    
 }
+

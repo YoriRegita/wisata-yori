@@ -35,7 +35,8 @@ class WisataController extends Controller
     // admin: form tambah
     public function create()
     {
-        return view('admin.wisata.create');
+        $categories = \App\Models\Category::orderBy('nama')->get();
+        return view('admin.wisata.create', compact('categories'));
     }
     //show detail
     public function show(Wisata $wisata)
@@ -51,6 +52,7 @@ class WisataController extends Controller
             'deskripsi' => ['required', 'string'],
             'google_maps_url' => ['required', 'url', 'max:2000'],
             'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
         if ($request->hasFile('foto')) {
@@ -66,8 +68,10 @@ class WisataController extends Controller
     // admin: form edit
     public function edit(Wisata $wisata)
     {
-        return view('admin.wisata.edit', compact('wisata'));
+        $categories = \App\Models\Category::orderBy('nama')->get();
+        return view('admin.wisata.edit', compact('wisata', 'categories'));
     }
+
 
     // admin: update data
     public function update(Request $request, Wisata $wisata)

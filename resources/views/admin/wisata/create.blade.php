@@ -22,32 +22,49 @@
                     </div>
                 @endif
 
-                <form class="mt-6"
-                      method="POST"
-                      action="{{ route('admin.wisata.store') }}"
-                      enctype="multipart/form-data">
+                <form class="mt-6" method="POST" action="{{ route('admin.wisata.store') }}"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-ink">Judul</label>
                             <input name="judul" value="{{ old('judul') }}"
-                                   class="mt-1 w-full rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-brand-500 focus:ring-brand-500"
-                                   placeholder="Contoh: Danau Tasik Aja">
+                                class="mt-1 w-full rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+                                placeholder="Contoh: Danau Tasik Aja">
                         </div>
+
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700">
+                                Kategori Wisata
+                            </label>
+
+                            <select name="category_id"
+                                class="mt-1 block w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500"
+                                required>
+                                <option value="">-- Pilih Kategori --</option>
+
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
 
                         <div>
                             <label class="block text-sm font-medium text-ink">Deskripsi</label>
                             <textarea name="deskripsi" rows="6"
-                                      class="mt-1 w-full rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-brand-500 focus:ring-brand-500"
-                                      placeholder="Tulis deskripsi lengkap...">{{ old('deskripsi') }}</textarea>
+                                class="mt-1 w-full rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+                                placeholder="Tulis deskripsi lengkap...">{{ old('deskripsi') }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-ink">Link Google Maps</label>
                             <input name="google_maps_url" value="{{ old('google_maps_url') }}"
-                                   class="mt-1 w-full rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-brand-500 focus:ring-brand-500"
-                                   placeholder="https://maps.app.goo.gl/...">
+                                class="mt-1 w-full rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+                                placeholder="https://maps.app.goo.gl/...">
                             <p class="text-xs text-muted mt-1">Google Maps → Share → Copy link.</p>
                         </div>
 

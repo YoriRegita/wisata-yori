@@ -16,7 +16,10 @@ return new class extends Migration
         $table->string('judul');
         $table->text('deskripsi');
         $table->string('foto')->nullable(); 
-        $table->string('google_maps_url');  
+        $table->string('google_maps_url'); 
+        
+        $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+        $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
         $table->timestamps();
     });
     }

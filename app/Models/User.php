@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function wisatas()
+    {
+        return $this->hasMany(\App\Models\Wisata::class);
+    }
+
 }
